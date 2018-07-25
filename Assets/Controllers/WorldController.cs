@@ -50,8 +50,6 @@ public class WorldController : MonoBehaviour {
 
 	void OnTileChanged(Tile tile_data, GameObject tile_go)
 	{
-		
-
 		if(tile_data.Type == Tile.TileType.Floor)
 		{
 			tile_go.GetComponent<SpriteRenderer>().sprite = floorSprite;
@@ -64,5 +62,12 @@ public class WorldController : MonoBehaviour {
 		{
 			Debug.Log("OnTileChanged - Unrecognized tile type.");
 		}
+	}
+
+	public Tile GetTileAtWorldCoord(Vector3 coord) {
+		int x = Mathf.FloorToInt(coord.x);
+		int y = Mathf.FloorToInt(coord.y);
+
+		return WorldController.Instance.World.GetTileAt(x,y);
 	}
 }
