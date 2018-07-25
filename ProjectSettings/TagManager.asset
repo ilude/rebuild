@@ -41,3 +41,15 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: TilesUI
+    uniqueID: 4024013615
+    locked: 0
+  - name: Walls
+    uniqueID: 2147443917
+    locked: 0
+  - name: UI
+    uniqueID: 3126370845
+    locked: 0
+  - name: Cursor
+    uniqueID: 4148591303
+    locked: 0
