@@ -31,7 +31,7 @@ public class World {
 	{
 		if(x > Width || x < 0 || y > Height || y < 0)
 		{
-			Debug.LogErrorFormat("Tile ({0},{1}) is out of range.");
+			Debug.LogErrorFormat("Tile ({0},{1}) is out of range.", x, y);
 			return null;
 		}
 
