@@ -10,23 +10,21 @@ public class WorldController : MonoBehaviour {
 	Dictionary<Tile, GameObject> tileGameObjectMap = new Dictionary<Tile, GameObject>();
 
 
-	public static WorldController Instance { get; protected set;}
+	public static WorldController Instance { get; protected set; }
 
 	// Use this for initialization
-	void Start () {
-		if(Instance != null)
+	void Start() {
+		if (Instance != null)
 			Debug.LogError("There should only ever be one WorldController.");
 
 		Instance = this;
 
 		World = new World();
-		
+
 
 		// create gameobjects for each tile
-		for (int x = 0; x < World.Width; x++)
-		{
-			for (int y = 0; y < World.Height; y++)
-			{
+		for (int x = 0; x < World.Width; x++) {
+			for (int y = 0; y < World.Height; y++) {
 				Tile tile_data = World.GetTileAt(x, y);
 
 				GameObject tile_go = new GameObject();
@@ -36,30 +34,28 @@ public class WorldController : MonoBehaviour {
 
 				tile_go.AddComponent<SpriteRenderer>();
 				tileGameObjectMap[tile_data] = tile_go;
-				tile_data.RegisterTileTypeChanged((tile)=> { OnTileChanged(tile, tile_go); });
+				tile_data.RegisterTileTypeChanged(OnTileChanged);
 			}
 		}
 
 		World.RandomizeTiles();
 	}
-	
+
 	// Update is called once per frame
-	void Update () {
-		
+	void Update() {
+
 	}
 
-	void OnTileChanged(Tile tile_data, GameObject tile_go)
-	{
-		if(tile_data.Type == Tile.TileType.Floor)
-		{
+	void OnTileChanged(Tile tile_data) {
+		var tile_go = tileGameObjectMap[tile_data];
+
+		if (tile_data.Type == TileType.Floor) {
 			tile_go.GetComponent<SpriteRenderer>().sprite = floorSprite;
 		}
-		else if(tile_data.Type == Tile.TileType.Empty)
-		{
+		else if (tile_data.Type == TileType.Empty) {
 			tile_go.GetComponent<SpriteRenderer>().sprite = null;
 		}
-		else
-		{
+		else {
 			Debug.Log("OnTileChanged - Unrecognized tile type.");
 		}
 	}
@@ -68,6 +64,6 @@ public class WorldController : MonoBehaviour {
 		int x = Mathf.FloorToInt(coord.x);
 		int y = Mathf.FloorToInt(coord.y);
 
-		return WorldController.Instance.World.GetTileAt(x,y);
+		return WorldController.Instance.World.GetTileAt(x, y);
 	}
 }
