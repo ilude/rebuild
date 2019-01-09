@@ -38,7 +38,7 @@ public class WorldController : MonoBehaviour {
 			}
 		}
 
-		World.RandomizeTiles();
+		//World.RandomizeTiles();
 	}
 
 	// Update is called once per frame
